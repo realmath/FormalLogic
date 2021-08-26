@@ -19,9 +19,7 @@ abstract class QuantifierFormula extends Formula {
     this.quantifier = quantifier;
     this.baseFormula = baseFormula;
     freeVariables =
-        baseFormula
-            .getFreeVariables()
-            .stream()
+        baseFormula.getFreeVariables().stream()
             .filter(x -> x.equals(quantifier))
             .collect(Collectors.toUnmodifiableSet());
   }

@@ -1,6 +1,6 @@
 plugins {
   java
-  id("com.github.sherter.google-java-format") version "0.8"
+  id("com.github.sherter.google-java-format") version "0.9"
   id("net.ltgt.errorprone") version "1.1.1"
 }
 
