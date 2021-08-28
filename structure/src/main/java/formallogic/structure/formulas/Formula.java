@@ -6,7 +6,7 @@ import formallogic.structure.domains.TruthDomain;
 
 abstract class Formula extends Term {
   @Override
-  public final Domain getValueDomain() {
+  public final Domain domain() {
     return TruthDomain.TRUTH_DOMAIN;
   }
 }

@@ -10,14 +10,14 @@ final class VariableTest {
   void getFreeVariables() {
     Domain d = new Domain() {};
     Variable v = new Variable(d);
-    assertThat(v.getFreeVariables()).containsExactly(v);
+    assertThat(v.variables()).containsExactly(v);
   }
 
   @Test
   void getValueDomain() {
     Domain d = new Domain() {};
     Variable v = new Variable(d);
-    assertThat(v.getValueDomain()).isEqualTo(d);
+    assertThat(v.domain()).isEqualTo(d);
   }
 
   @Test

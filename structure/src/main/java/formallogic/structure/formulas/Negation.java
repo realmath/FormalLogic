@@ -15,7 +15,7 @@ public final class Negation extends Formula {
   private final Term operand;
 
   Negation(Term operand) {
-    assert operand.getValueDomain().equals(TruthDomain.TRUTH_DOMAIN) : "operand";
+    assert operand.domain().equals(TruthDomain.TRUTH_DOMAIN) : "operand";
     this.operand = operand;
   }
 
@@ -25,7 +25,7 @@ public final class Negation extends Formula {
   }
 
   @Override
-  protected Set<Variable> getFreeVariables_() {
-    return getOperand().getFreeVariables();
+  protected Set<Variable> variables_() {
+    return getOperand().variables();
   }
 }

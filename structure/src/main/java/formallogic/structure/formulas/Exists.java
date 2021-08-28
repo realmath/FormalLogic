@@ -11,7 +11,7 @@ public final class Exists extends QuantifierFormula {
 
   @Override
   protected Exists substitute__(Variable variable, Term term) {
-    if (getFreeVariables().contains(variable)) {
+    if (variables().contains(variable)) {
       return new Exists(getQuantifier(), getBaseFormula().substitute(variable, term));
     }
     return this;

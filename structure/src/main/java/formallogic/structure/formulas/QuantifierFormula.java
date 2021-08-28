@@ -14,12 +14,11 @@ abstract class QuantifierFormula extends Formula {
   private final Set<Variable> freeVariables;
 
   QuantifierFormula(Variable quantifier, Term baseFormula) {
-    assert baseFormula.getValueDomain().equals(TruthDomain.TRUTH_DOMAIN)
-        : "baseFormula is not a formula";
+    assert baseFormula.domain().equals(TruthDomain.TRUTH_DOMAIN) : "baseFormula is not a formula";
     this.quantifier = quantifier;
     this.baseFormula = baseFormula;
     freeVariables =
-        baseFormula.getFreeVariables().stream()
+        baseFormula.variables().stream()
             .filter(x -> x.equals(quantifier))
             .collect(Collectors.toUnmodifiableSet());
   }
@@ -33,13 +32,13 @@ abstract class QuantifierFormula extends Formula {
   }
 
   @Override
-  protected Set<Variable> getFreeVariables_() {
+  protected Set<Variable> variables_() {
     return freeVariables;
   }
 
   @Override
   protected final Term substitute_(Variable variable, Term term) {
-    assert variable.getValueDomain().equals(term.getValueDomain());
+    assert variable.domain().equals(term.domain());
     return substitute__(variable, term);
   }
 

@@ -12,12 +12,12 @@ public final class Variable extends Term {
   }
 
   @Override
-  protected Set<Variable> getFreeVariables_() {
+  protected Set<Variable> variables_() {
     return Set.of(this);
   }
 
   @Override
-  public Domain getValueDomain() {
+  public Domain domain() {
     return valueDomain;
   }
 

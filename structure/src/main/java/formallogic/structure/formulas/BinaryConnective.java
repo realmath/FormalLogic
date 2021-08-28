@@ -15,13 +15,12 @@ abstract class BinaryConnective extends Formula {
   private final Set<Variable> freeVariables;
 
   BinaryConnective(Term leftOperand, Term rightOperand) {
-    assert leftOperand.getValueDomain().equals(TruthDomain.TRUTH_DOMAIN) : "leftOperand";
-    assert rightOperand.getValueDomain().equals(TruthDomain.TRUTH_DOMAIN) : "rightOperand";
+    assert leftOperand.domain().equals(TruthDomain.TRUTH_DOMAIN) : "leftOperand";
+    assert rightOperand.domain().equals(TruthDomain.TRUTH_DOMAIN) : "rightOperand";
     this.leftOperand = leftOperand;
     this.rightOperand = rightOperand;
     freeVariables =
-        Stream.concat(
-                leftOperand.getFreeVariables().stream(), rightOperand.getFreeVariables().stream())
+        Stream.concat(leftOperand.variables().stream(), rightOperand.variables().stream())
             .collect(Collectors.toUnmodifiableSet());
   }
 
@@ -34,7 +33,7 @@ abstract class BinaryConnective extends Formula {
   }
 
   @Override
-  protected Set<Variable> getFreeVariables_() {
+  protected Set<Variable> variables_() {
     return freeVariables;
   }
 

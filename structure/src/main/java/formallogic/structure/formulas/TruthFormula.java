@@ -16,7 +16,7 @@ public final class TruthFormula extends Formula {
   }
 
   @Override
-  protected Set<Variable> getFreeVariables_() {
+  protected Set<Variable> variables_() {
     return Set.of();
   }
 }

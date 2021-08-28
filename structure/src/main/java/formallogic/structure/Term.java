@@ -6,40 +6,39 @@ import java.util.function.BooleanSupplier;
 
 public abstract class Term {
 
-  public abstract Domain getValueDomain();
+  /** The value domain of the term. */
+  public abstract Domain domain();
 
   /**
    * Evaluates the term by substituting the given variable with the given term. The given variable
    * and the given term must have the same value domain.
    */
   public final Term substitute(Variable variable, Term term) {
-    assert variable.getValueDomain().equals(term.getValueDomain())
-        : "variable and term of different type";
+    assert variable.domain().equals(term.domain()) : "variable and term of different type";
     Term result = substitute_(variable, term);
-    assert getValueDomain().equals(result.getValueDomain())
-        : "evaluation is of a different type than original";
+    assert domain().equals(result.domain()) : "evaluation is of a different type than original";
     assert ((BooleanSupplier)
                 () -> {
-                  Set<Variable> expectedFreeVariables = new HashSet<>(getFreeVariables());
-                  boolean containsVariable = expectedFreeVariables.remove(variable);
+                  Set<Variable> expectedVariables = new HashSet<>(variables());
+                  boolean containsVariable = expectedVariables.remove(variable);
                   if (containsVariable) {
-                    expectedFreeVariables.addAll(term.getFreeVariables());
+                    expectedVariables.addAll(term.variables());
                   }
-                  return result.getFreeVariables().equals(expectedFreeVariables);
+                  return result.variables().equals(expectedVariables);
                 })
             .getAsBoolean()
-        : "result does not have the expected set of free variables";
+        : "result does not have the expected set of variables";
     return result;
   }
 
-  protected abstract Term substitute_(Variable variable, Term term);
-
   /** Returns free variables of the term. */
-  public final Set<Variable> getFreeVariables() {
-    Set<Variable> retVal = getFreeVariables_();
+  public final Set<Variable> variables() {
+    Set<Variable> retVal = variables_();
     assert Set.copyOf(retVal) == retVal : "mutable";
     return retVal;
   }
 
-  protected abstract Set<Variable> getFreeVariables_();
+  protected abstract Term substitute_(Variable variable, Term term);
+
+  protected abstract Set<Variable> variables_();
 }
