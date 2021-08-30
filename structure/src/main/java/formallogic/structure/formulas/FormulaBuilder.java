@@ -27,11 +27,11 @@ public final class FormulaBuilder {
     return new FormulaBuilder(new Disjunction(formula, rightOperand));
   }
 
-  public FormulaBuilder implying(Term thenTrue) {
+  public FormulaBuilder implies(Term thenTrue) {
     return new FormulaBuilder(new Implication(formula, thenTrue));
   }
 
-  public FormulaBuilder impliedBy(Term ifTrue) {
+  public FormulaBuilder isImpliedBy(Term ifTrue) {
     return new FormulaBuilder(new Implication(ifTrue, formula));
   }
 

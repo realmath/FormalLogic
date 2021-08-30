@@ -13,6 +13,6 @@ public final class Conjunction extends BinaryConnective {
   @Override
   protected Conjunction substitute_(Variable variable, Term term) {
     return new Conjunction(
-        getLeftOperand().substitute(variable, term), getRightOperand().substitute(variable, term));
+        leftOperand().substitute(variable, term), rightOperand().substitute(variable, term));
   }
 }

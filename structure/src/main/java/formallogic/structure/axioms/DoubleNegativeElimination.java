@@ -16,8 +16,8 @@ public final class DoubleNegativeElimination extends Axiom {
   protected boolean justifies_(Term formulaWithNoFreeVariables) {
     if (formulaWithNoFreeVariables instanceof Implication) {
       Implication implication = (Implication) formulaWithNoFreeVariables;
-      Term ifTrue = implication.getLeftOperand();
-      Term thenTrue = implication.getRightOperand();
+      Term ifTrue = implication.leftOperand();
+      Term thenTrue = implication.rightOperand();
       if (ifTrue instanceof Negation) {
         Term tmp = ((Negation) ifTrue).getOperand();
         if (tmp instanceof Negation) {

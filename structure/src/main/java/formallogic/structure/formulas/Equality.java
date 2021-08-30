@@ -12,6 +12,6 @@ public final class Equality extends BinaryConnective {
   @Override
   protected Equality substitute_(Variable variable, Term term) {
     return new Equality(
-        getLeftOperand().substitute(variable, term), getRightOperand().substitute(variable, term));
+        leftOperand().substitute(variable, term), rightOperand().substitute(variable, term));
   }
 }

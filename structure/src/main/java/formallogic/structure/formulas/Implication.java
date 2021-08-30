@@ -13,6 +13,6 @@ public final class Implication extends BinaryConnective {
   @Override
   protected Implication substitute_(Variable variable, Term term) {
     return new Implication(
-        getLeftOperand().substitute(variable, term), getRightOperand().substitute(variable, term));
+        leftOperand().substitute(variable, term), rightOperand().substitute(variable, term));
   }
 }

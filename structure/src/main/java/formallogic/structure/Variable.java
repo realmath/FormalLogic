@@ -4,11 +4,11 @@ import java.util.Set;
 
 public final class Variable extends Term {
 
-  private final Domain valueDomain;
+  private final Domain domain;
 
   /** Creates a new variable in the specified {@link Domain}. */
-  public Variable(Domain valueDomain) {
-    this.valueDomain = valueDomain;
+  public Variable(Domain domain) {
+    this.domain = domain;
   }
 
   @Override
@@ -18,7 +18,7 @@ public final class Variable extends Term {
 
   @Override
   public Domain domain() {
-    return valueDomain;
+    return domain;
   }
 
   @Override

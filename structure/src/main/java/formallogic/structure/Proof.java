@@ -29,7 +29,7 @@ public final class Proof {
   /** The axiom verifies that the premise implies the conclusion. */
   public static Proof newProof(Axiom axiom, Proof premise, Term conclusion) {
     assert axiom.justifies(
-            FormulaBuilder.newBuilder(premise.getConclusion()).implying(conclusion).build())
+            FormulaBuilder.newBuilder(premise.getConclusion()).implies(conclusion).build())
         : "premise does not imply conclusion";
     return new Proof(axiom, Set.of(premise), conclusion);
   }
@@ -39,7 +39,7 @@ public final class Proof {
     assert axiom.justifies(
             FormulaBuilder.newBuilder(premise1.getConclusion())
                 .and(premise2.getConclusion())
-                .implying(conclusion)
+                .implies(conclusion)
                 .build())
         : "premises does not imply conclusion";
     return new Proof(axiom, Set.of(premise1, premise2), conclusion);

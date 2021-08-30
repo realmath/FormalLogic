@@ -13,6 +13,6 @@ public final class Disjunction extends BinaryConnective {
   @Override
   protected Disjunction substitute_(Variable variable, Term term) {
     return new Disjunction(
-        getLeftOperand().substitute(variable, term), getRightOperand().substitute(variable, term));
+        leftOperand().substitute(variable, term), rightOperand().substitute(variable, term));
   }
 }

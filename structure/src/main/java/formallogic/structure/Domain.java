@@ -1,4 +1,4 @@
 package formallogic.structure;
 
-/** Type of a term. */
+/** The type of term. */
 public abstract class Domain {}

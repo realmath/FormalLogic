@@ -12,29 +12,29 @@ abstract class BinaryConnective extends Formula {
 
   private final Term leftOperand;
   private final Term rightOperand;
-  private final Set<Variable> freeVariables;
+  private final Set<Variable> variables;
 
   BinaryConnective(Term leftOperand, Term rightOperand) {
     assert leftOperand.domain().equals(TruthDomain.TRUTH_DOMAIN) : "leftOperand";
     assert rightOperand.domain().equals(TruthDomain.TRUTH_DOMAIN) : "rightOperand";
     this.leftOperand = leftOperand;
     this.rightOperand = rightOperand;
-    freeVariables =
+    variables =
         Stream.concat(leftOperand.variables().stream(), rightOperand.variables().stream())
             .collect(Collectors.toUnmodifiableSet());
   }
 
-  public final Term getLeftOperand() {
+  public final Term leftOperand() {
     return leftOperand;
   }
 
-  public final Term getRightOperand() {
+  public final Term rightOperand() {
     return rightOperand;
   }
 
   @Override
   protected Set<Variable> variables_() {
-    return freeVariables;
+    return variables;
   }
 
   @Override
@@ -47,12 +47,12 @@ abstract class BinaryConnective extends Formula {
     }
     BinaryConnective that = (BinaryConnective) obj;
     return Objects.equals(getClass(), that.getClass())
-        && Objects.equals(getLeftOperand(), that.getLeftOperand())
-        && Objects.equals(getRightOperand(), that.getRightOperand());
+        && Objects.equals(leftOperand(), that.leftOperand())
+        && Objects.equals(rightOperand(), that.rightOperand());
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(getLeftOperand(), getRightOperand());
+    return Objects.hash(leftOperand(), rightOperand());
   }
 }
