@@ -53,6 +53,6 @@ abstract class BinaryConnective extends Formula {
 
   @Override
   public final int hashCode() {
-    return Objects.hash(leftOperand(), rightOperand());
+    return Objects.hash(getClass(), leftOperand(), rightOperand());
   }
 }

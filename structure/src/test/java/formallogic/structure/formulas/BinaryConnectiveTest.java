@@ -29,6 +29,7 @@ final class BinaryConnectiveTest {
     assertThat(b.variables()).isEqualTo(Set.of(vLeft, vRight1, vRight2));
 
     assertThat(b).isEqualTo(new FakeBinaryConnective(left, right));
+    assertThat(b.hashCode()).isEqualTo(new FakeBinaryConnective(left, right).hashCode());
     assertThat(b).isNotEqualTo(new FakeBinaryConnective(right, left));
     assertThat(b).isNotEqualTo(new Implication(left, right));
   }
