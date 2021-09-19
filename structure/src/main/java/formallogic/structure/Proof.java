@@ -4,8 +4,10 @@ import formallogic.structure.formulas.FormulaBuilder;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 @EqualsAndHashCode
+@Accessors(fluent = true)
 @Getter
 public final class Proof {
 
@@ -29,7 +31,7 @@ public final class Proof {
   /** The axiom verifies that the premise implies the conclusion. */
   public static Proof newProof(Axiom axiom, Proof premise, Term conclusion) {
     assert axiom.justifies(
-            FormulaBuilder.newBuilder(premise.getConclusion()).implies(conclusion).build())
+            FormulaBuilder.newBuilder(premise.conclusion()).implies(conclusion).build())
         : "premise does not imply conclusion";
     return new Proof(axiom, Set.of(premise), conclusion);
   }
@@ -37,8 +39,8 @@ public final class Proof {
   /** The axiom verifies that the two premises imply the conclusion. */
   public static Proof newProof(Axiom axiom, Proof premise1, Proof premise2, Term conclusion) {
     assert axiom.justifies(
-            FormulaBuilder.newBuilder(premise1.getConclusion())
-                .and(premise2.getConclusion())
+            FormulaBuilder.newBuilder(premise1.conclusion())
+                .and(premise2.conclusion())
                 .implies(conclusion)
                 .build())
         : "premises does not imply conclusion";

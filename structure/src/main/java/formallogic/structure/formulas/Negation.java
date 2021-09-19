@@ -6,9 +6,11 @@ import formallogic.structure.domains.TruthDomain;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 /** Negation of a Formula. */
 @EqualsAndHashCode(callSuper = false)
+@Accessors(fluent = true)
 @Getter
 public final class Negation extends Formula {
 
@@ -26,6 +28,6 @@ public final class Negation extends Formula {
 
   @Override
   protected Set<Variable> variables_() {
-    return getOperand().variables();
+    return operand().variables();
   }
 }

@@ -4,8 +4,10 @@ import formallogic.structure.Domain;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 @EqualsAndHashCode(callSuper = false)
+@Accessors(fluent = true)
 @Getter
 public final class FunctionDomain extends Domain {
 

@@ -19,9 +19,9 @@ public final class DoubleNegativeElimination extends Axiom {
       Term ifTrue = implication.leftOperand();
       Term thenTrue = implication.rightOperand();
       if (ifTrue instanceof Negation) {
-        Term tmp = ((Negation) ifTrue).getOperand();
+        Term tmp = ((Negation) ifTrue).operand();
         if (tmp instanceof Negation) {
-          tmp = ((Negation) tmp).getOperand();
+          tmp = ((Negation) tmp).operand();
           return tmp.equals(thenTrue);
         }
       }
