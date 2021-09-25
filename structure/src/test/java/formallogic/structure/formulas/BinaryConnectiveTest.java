@@ -10,12 +10,17 @@ import formallogic.structure.Variable;
 import formallogic.structure.testing.FakeDomain;
 import formallogic.structure.testing.ProdTerm;
 import formallogic.structure.testing.UnaryTerm;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 final class BinaryConnectiveTest {
+  private final List<Class<? extends BinaryConnective>> classes =
+      Arrays.asList(Conjunction.class, Disjunction.class, Equality.class, Implication.class);
+
   @Test
-  void beanTest() {
+  void beanTest() throws Exception {
     Domain vLeftDomain = new FakeDomain();
     Variable vLeft = new Variable(vLeftDomain);
     Domain vRight1Domain = new FakeDomain();
@@ -24,14 +29,38 @@ final class BinaryConnectiveTest {
     Variable vRight2 = new Variable(vRight2Domain);
     Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
     Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
-    BinaryConnective b = new FakeBinaryConnective(left, right);
-    assertThat(b.leftOperand()).isEqualTo(left);
-    assertThat(b.rightOperand()).isEqualTo(right);
-    assertThat(b.variables()).isEqualTo(Set.of(vLeft, vRight1, vRight2));
+    for (Class<? extends BinaryConnective> cls : classes) {
+      BinaryConnective b =
+          cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left, right);
+      assertThat(b.leftOperand()).isEqualTo(left);
+      assertThat(b.rightOperand()).isEqualTo(right);
+      assertThat(b.variables()).isEqualTo(Set.of(vLeft, vRight1, vRight2));
+    }
   }
 
   @Test
-  void equalsTest() {
+  void substitute() throws Exception {
+    Domain vLeftDomain = new FakeDomain();
+    Variable vLeft = new Variable(vLeftDomain);
+    Domain vRight1Domain = new FakeDomain();
+    Variable vRight1 = new Variable(vRight1Domain);
+    Domain vRight2Domain = new FakeDomain();
+    Variable vRight2 = new Variable(vRight2Domain);
+    Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
+    Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
+    Term replacement = new UnaryTerm(left, vRight1Domain);
+    for (Class<? extends BinaryConnective> cls : classes) {
+      BinaryConnective b =
+          cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left, right);
+      assertThat(b.substitute(vRight1, replacement))
+          .isEqualTo(
+              cls.getDeclaredConstructor(Term.class, Term.class)
+                  .newInstance(left, right.substitute(vRight1, replacement)));
+    }
+  }
+
+  @Test
+  void equalsTest() throws Exception {
     Domain vLeftDomain = new FakeDomain();
     Variable vLeft = new Variable(vLeftDomain);
     Domain vRightDomainA = new FakeDomain();
@@ -43,28 +72,17 @@ final class BinaryConnectiveTest {
     Term left2 = new UnaryTerm(vLeft, TRUTH_DOMAIN);
     Term right2 = new ProdTerm(vRightA, vRightB, TRUTH_DOMAIN);
     Term right3 = new ProdTerm(vRightB, vRightA, TRUTH_DOMAIN);
-    new EqualsTester()
-        .addEqualityGroup(new Implication(left1, right1), new Implication(left2, right2))
-        .addEqualityGroup(new Implication(left1, right3))
-        .addEqualityGroup(new Conjunction(left1, right1), new Conjunction(left2, right2))
-        .addEqualityGroup(new Conjunction(left1, right3))
-        .addEqualityGroup(new Disjunction(left1, right1), new Disjunction(left2, right2))
-        .addEqualityGroup(new Disjunction(left1, right3))
-        .addEqualityGroup(new Equality(left1, right1), new Equality(left2, right2))
-        .addEqualityGroup(new Equality(left1, right3))
-        .testEquals();
-  }
-
-  static final class FakeBinaryConnective extends BinaryConnective {
-
-    FakeBinaryConnective(Term leftOperand, Term rightOperand) {
-      super(leftOperand, rightOperand);
+    EqualsTester equalsTester = new EqualsTester();
+    for (Class<? extends BinaryConnective> cls : classes) {
+      BinaryConnective b1 =
+          cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left1, right1);
+      BinaryConnective b2 =
+          cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left2, right2);
+      BinaryConnective b3 =
+          cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left1, right3);
+      equalsTester.addEqualityGroup(b1, b2);
+      equalsTester.addEqualityGroup(b3);
     }
-
-    @Override
-    protected Term substitute_(Variable variable, Term term) {
-      return new FakeBinaryConnective(
-          leftOperand().substitute(variable, term), rightOperand().substitute(variable, term));
-    }
+    equalsTester.testEquals();
   }
 }
