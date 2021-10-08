@@ -1,7 +1,7 @@
 package formallogic.structure.formulas;
 
-import formallogic.structure.Term;
-import formallogic.structure.Variable;
+import formallogic.structure.core.Term;
+import formallogic.structure.core.Variable;
 
 /** The logical and. */
 public final class Conjunction extends BinaryConnective {

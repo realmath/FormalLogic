@@ -1,4 +1,4 @@
-package formallogic.structure;
+package formallogic.structure.core;
 
 import static com.google.common.truth.Truth.assertThat;
 

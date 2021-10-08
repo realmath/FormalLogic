@@ -1,8 +1,8 @@
 package formallogic.structure.testing;
 
-import formallogic.structure.Domain;
-import formallogic.structure.Term;
-import formallogic.structure.Variable;
+import formallogic.structure.core.Domain;
+import formallogic.structure.core.Term;
+import formallogic.structure.core.Variable;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

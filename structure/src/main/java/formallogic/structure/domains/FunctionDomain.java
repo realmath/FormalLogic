@@ -1,6 +1,6 @@
 package formallogic.structure.domains;
 
-import formallogic.structure.Domain;
+import formallogic.structure.core.Domain;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

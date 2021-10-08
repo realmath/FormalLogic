@@ -1,6 +1,6 @@
 package formallogic.structure.domains;
 
-import formallogic.structure.Domain;
+import formallogic.structure.core.Domain;
 
 public final class TruthDomain extends Domain {
 

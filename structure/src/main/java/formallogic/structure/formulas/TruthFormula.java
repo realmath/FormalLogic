@@ -1,7 +1,7 @@
 package formallogic.structure.formulas;
 
-import formallogic.structure.Term;
-import formallogic.structure.Variable;
+import formallogic.structure.core.Term;
+import formallogic.structure.core.Variable;
 import java.util.Set;
 
 public final class TruthFormula extends Formula {

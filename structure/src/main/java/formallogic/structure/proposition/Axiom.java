@@ -1,6 +1,8 @@
-package formallogic.structure;
+package formallogic.structure.proposition;
 
 import static formallogic.structure.domains.TruthDomain.TRUTH_DOMAIN;
+
+import formallogic.structure.core.Term;
 
 public abstract class Axiom {
 

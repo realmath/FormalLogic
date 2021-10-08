@@ -1,4 +1,4 @@
-package formallogic.structure;
+package formallogic.structure.core;
 
 import java.util.HashSet;
 import java.util.Set;

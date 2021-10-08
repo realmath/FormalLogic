@@ -4,9 +4,9 @@ import static com.google.common.truth.Truth.assertThat;
 import static formallogic.structure.domains.TruthDomain.TRUTH_DOMAIN;
 
 import com.google.common.testing.EqualsTester;
-import formallogic.structure.Domain;
-import formallogic.structure.Term;
-import formallogic.structure.Variable;
+import formallogic.structure.core.Domain;
+import formallogic.structure.core.Term;
+import formallogic.structure.core.Variable;
 import formallogic.structure.testing.FakeDomain;
 import formallogic.structure.testing.ProdTerm;
 import formallogic.structure.testing.UnaryTerm;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-final class BinaryConnectiveTest {
-  private final List<Class<? extends BinaryConnective>> classes =
+final class BinaryOperatorTest {
+  private final List<Class<? extends BinaryOperator>> classes =
       Arrays.asList(Conjunction.class, Disjunction.class, Equality.class, Implication.class);
 
   @Test
@@ -29,8 +29,8 @@ final class BinaryConnectiveTest {
     Variable vRight2 = new Variable(vRight2Domain);
     Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
     Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
-    for (Class<? extends BinaryConnective> cls : classes) {
-      BinaryConnective b =
+    for (Class<? extends BinaryOperator> cls : classes) {
+      BinaryOperator b =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left, right);
       assertThat(b.leftOperand()).isEqualTo(left);
       assertThat(b.rightOperand()).isEqualTo(right);
@@ -49,8 +49,8 @@ final class BinaryConnectiveTest {
     Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
     Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
     Term replacement = new UnaryTerm(left, vRight1Domain);
-    for (Class<? extends BinaryConnective> cls : classes) {
-      BinaryConnective b =
+    for (Class<? extends BinaryOperator> cls : classes) {
+      BinaryOperator b =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left, right);
       assertThat(b.substitute(vRight1, replacement))
           .isEqualTo(
@@ -73,12 +73,12 @@ final class BinaryConnectiveTest {
     Term right2 = new ProdTerm(vRightA, vRightB, TRUTH_DOMAIN);
     Term right3 = new ProdTerm(vRightB, vRightA, TRUTH_DOMAIN);
     EqualsTester equalsTester = new EqualsTester();
-    for (Class<? extends BinaryConnective> cls : classes) {
-      BinaryConnective b1 =
+    for (Class<? extends BinaryOperator> cls : classes) {
+      BinaryOperator b1 =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left1, right1);
-      BinaryConnective b2 =
+      BinaryOperator b2 =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left2, right2);
-      BinaryConnective b3 =
+      BinaryOperator b3 =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left1, right3);
       equalsTester.addEqualityGroup(b1, b2);
       equalsTester.addEqualityGroup(b3);

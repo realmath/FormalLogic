@@ -1,9 +1,9 @@
 package formallogic.structure.axioms;
 
-import formallogic.structure.Axiom;
-import formallogic.structure.Term;
+import formallogic.structure.core.Term;
 import formallogic.structure.formulas.Implication;
 import formallogic.structure.formulas.Negation;
+import formallogic.structure.proposition.Axiom;
 
 public final class DoubleNegativeElimination extends Axiom {
 

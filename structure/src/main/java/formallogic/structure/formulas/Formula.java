@@ -1,7 +1,7 @@
 package formallogic.structure.formulas;
 
-import formallogic.structure.Domain;
-import formallogic.structure.Term;
+import formallogic.structure.core.Domain;
+import formallogic.structure.core.Term;
 import formallogic.structure.domains.TruthDomain;
 
 abstract class Formula extends Term {

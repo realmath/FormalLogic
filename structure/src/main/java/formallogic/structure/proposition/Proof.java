@@ -1,5 +1,6 @@
-package formallogic.structure;
+package formallogic.structure.proposition;
 
+import formallogic.structure.core.Term;
 import formallogic.structure.formulas.FormulaBuilder;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
