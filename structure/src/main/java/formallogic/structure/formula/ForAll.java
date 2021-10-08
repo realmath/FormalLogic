@@ -1,4 +1,4 @@
-package formallogic.structure.formulas;
+package formallogic.structure.formula;
 
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;

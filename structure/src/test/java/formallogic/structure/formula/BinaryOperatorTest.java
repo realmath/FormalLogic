@@ -1,4 +1,4 @@
-package formallogic.structure.formulas;
+package formallogic.structure.formula;
 
 import static com.google.common.truth.Truth.assertThat;
 import static formallogic.structure.domains.TruthDomain.TRUTH_DOMAIN;

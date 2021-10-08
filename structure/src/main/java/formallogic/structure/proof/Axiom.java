@@ -1,4 +1,4 @@
-package formallogic.structure.proposition;
+package formallogic.structure.proof;
 
 import static formallogic.structure.domains.TruthDomain.TRUTH_DOMAIN;
 

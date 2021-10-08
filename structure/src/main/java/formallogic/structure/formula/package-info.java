@@ -1,2 +1,2 @@
 @javax.annotation.ParametersAreNonnullByDefault
-package formallogic.structure.formulas;
+package formallogic.structure.formula;

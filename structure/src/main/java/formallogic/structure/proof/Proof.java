@@ -1,7 +1,7 @@
-package formallogic.structure.proposition;
+package formallogic.structure.proof;
 
 import formallogic.structure.core.Term;
-import formallogic.structure.formulas.FormulaBuilder;
+import formallogic.structure.formula.FormulaBuilder;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
