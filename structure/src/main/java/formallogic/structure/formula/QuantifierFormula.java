@@ -19,7 +19,7 @@ abstract class QuantifierFormula extends Formula {
     this.baseFormula = baseFormula;
     variables =
         baseFormula.variables().stream()
-            .filter(x -> x.equals(quantifier))
+            .filter(x -> !x.equals(quantifier))
             .collect(Collectors.toUnmodifiableSet());
   }
 
@@ -49,7 +49,7 @@ abstract class QuantifierFormula extends Formula {
     if (this == o) {
       return true;
     }
-    if (o == null || (o instanceof QuantifierFormula)) {
+    if (!(o instanceof QuantifierFormula)) {
       return false;
     }
     QuantifierFormula that = (QuantifierFormula) o;

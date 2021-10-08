@@ -6,8 +6,10 @@ import formallogic.structure.core.Variable;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = false)
+@ToString
 public final class ProdTerm extends Term {
   final Term t1;
   final Term t2;
