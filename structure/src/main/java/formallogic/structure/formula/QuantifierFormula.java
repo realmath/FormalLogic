@@ -37,14 +37,6 @@ abstract class QuantifierFormula extends Formula {
   }
 
   @Override
-  protected final Term substitute_(Variable variable, Term term) {
-    assert variable.domain().equals(term.domain());
-    return substitute__(variable, term);
-  }
-
-  protected abstract Term substitute__(Variable variable, Term term);
-
-  @Override
   public final boolean equals(Object o) {
     if (this == o) {
       return true;

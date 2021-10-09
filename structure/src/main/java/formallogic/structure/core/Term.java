@@ -15,15 +15,16 @@ public abstract class Term {
    */
   public final Term substitute(Variable variable, Term term) {
     assert variable.domain().equals(term.domain()) : "variable and term of different type";
+    if (!variables().contains(variable)) {
+      return this;
+    }
     Term result = substitute_(variable, term);
     assert domain().equals(result.domain()) : "evaluation is of a different type than original";
     assert ((BooleanSupplier)
                 () -> {
                   Set<Variable> expectedVariables = new HashSet<>(variables());
-                  boolean containsVariable = expectedVariables.remove(variable);
-                  if (containsVariable) {
-                    expectedVariables.addAll(term.variables());
-                  }
+                  expectedVariables.remove(variable);
+                  expectedVariables.addAll(term.variables());
                   return result.variables().equals(expectedVariables);
                 })
             .getAsBoolean()
