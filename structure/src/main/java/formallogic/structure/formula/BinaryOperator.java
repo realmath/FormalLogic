@@ -41,7 +41,7 @@ abstract class BinaryOperator extends Formula {
     if (this == obj) {
       return true;
     }
-    if (obj == null || !(obj instanceof BinaryOperator)) {
+    if (!(obj instanceof BinaryOperator)) {
       return false;
     }
     BinaryOperator that = (BinaryOperator) obj;
