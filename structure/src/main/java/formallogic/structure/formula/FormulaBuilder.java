@@ -5,7 +5,7 @@ import formallogic.structure.core.Variable;
 
 public final class FormulaBuilder {
 
-  private final Term formula;
+  private Term formula;
 
   private FormulaBuilder(Term formula) {
     this.formula = formula;
@@ -16,36 +16,44 @@ public final class FormulaBuilder {
   }
 
   public FormulaBuilder not() {
-    return new FormulaBuilder(new Negation(formula));
+    formula = new Negation(formula);
+    return this;
   }
 
   public FormulaBuilder and(Term rightOperand) {
-    return new FormulaBuilder(new Conjunction(formula, rightOperand));
+    formula = new Conjunction(formula, rightOperand);
+    return this;
   }
 
   public FormulaBuilder or(Term rightOperand) {
-    return new FormulaBuilder(new Disjunction(formula, rightOperand));
+    formula = new Disjunction(formula, rightOperand);
+    return this;
   }
 
   public FormulaBuilder implies(Term thenTrue) {
-    return new FormulaBuilder(new Implication(formula, thenTrue));
+    formula = new Implication(formula, thenTrue);
+    return this;
   }
 
   public FormulaBuilder isImpliedBy(Term ifTrue) {
-    return new FormulaBuilder(new Implication(ifTrue, formula));
+    formula = new Implication(ifTrue, formula);
+    return this;
   }
 
   public FormulaBuilder forAll(Variable variable) {
-    return new FormulaBuilder(new ForAll(variable, formula));
+    formula = new ForAll(variable, formula);
+    return this;
   }
 
   public FormulaBuilder exists(Variable variable) {
-    return new FormulaBuilder(new Exists(variable, formula));
+    formula = new Exists(variable, formula);
+    return this;
   }
 
   /** Evaluates the specified variable with a term in the same domain. */
   public FormulaBuilder evaluate(Variable variable, Term term) {
-    return new FormulaBuilder(formula.substitute(variable, term));
+    formula = formula.substitute(variable, term);
+    return this;
   }
 
   public Term build() {
