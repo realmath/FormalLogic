@@ -1,11 +1,13 @@
 package formallogic.structure.formula;
 
+import formallogic.structure.core.Domain;
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;
 import formallogic.structure.domains.TruthDomain;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.EqualsAndHashCode;
 
 abstract class QuantifierFormula extends Formula {
 
@@ -23,16 +25,16 @@ abstract class QuantifierFormula extends Formula {
             .collect(Collectors.toUnmodifiableSet());
   }
 
-  public final Variable getQuantifier() {
+  public final Variable quantifier() {
     return quantifier;
   }
 
-  public final Term getBaseFormula() {
+  public final Term baseFormula() {
     return baseFormula;
   }
 
   @Override
-  protected Set<Variable> variables_() {
+  protected final Set<Variable> variables_() {
     return variables;
   }
 
@@ -46,12 +48,37 @@ abstract class QuantifierFormula extends Formula {
     }
     QuantifierFormula that = (QuantifierFormula) o;
     return Objects.equals(getClass(), that.getClass())
-        && Objects.equals(getBaseFormula(), that.getBaseFormula())
-        && Objects.equals(getQuantifier(), that.getQuantifier());
+        && Objects.equals(variables, that.variables)
+        && Objects.equals(quantifier.domain(), that.quantifier.domain())
+        && Objects.equals(baseFormula.substitute(quantifier, that.quantifier), that.baseFormula);
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hash(getBaseFormula(), getQuantifier());
+    return Objects.hash(baseFormula.substitute(quantifier, new DummyTerm(quantifier.domain())));
+  }
+
+  @EqualsAndHashCode(callSuper = false)
+  private static final class DummyTerm extends Term {
+    private final Domain d;
+
+    public DummyTerm(Domain d) {
+      this.d = d;
+    }
+
+    @Override
+    public Domain domain() {
+      return d;
+    }
+
+    @Override
+    protected Term substitute_(Variable variable, Term term) {
+      return this;
+    }
+
+    @Override
+    protected Set<Variable> variables_() {
+      return Set.of();
+    }
   }
 }

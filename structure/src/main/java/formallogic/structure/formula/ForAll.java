@@ -11,6 +11,7 @@ public final class ForAll extends QuantifierFormula {
 
   @Override
   protected ForAll substitute_(Variable variable, Term term) {
-    return new ForAll(getQuantifier(), getBaseFormula().substitute(variable, term));
+    assert variables().contains(variable) : "variable is not free";
+    return new ForAll(quantifier(), baseFormula().substitute(variable, term));
   }
 }

@@ -31,18 +31,18 @@ class QuantifierFormulaTest {
     for (Class<? extends QuantifierFormula> cls : classes) {
       QuantifierFormula q =
           cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v1, t);
-      assertThat(q.getQuantifier()).isEqualTo(v1);
-      assertThat(q.getBaseFormula()).isEqualTo(t);
+      assertThat(q.quantifier()).isEqualTo(v1);
+      assertThat(q.baseFormula()).isEqualTo(t);
       assertThat(q.variables()).isEqualTo(Set.of(v2));
 
       q = cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v2, t);
-      assertThat(q.getQuantifier()).isEqualTo(v2);
-      assertThat(q.getBaseFormula()).isEqualTo(t);
+      assertThat(q.quantifier()).isEqualTo(v2);
+      assertThat(q.baseFormula()).isEqualTo(t);
       assertThat(q.variables()).isEqualTo(Set.of(v1));
 
       q = cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v3, t);
-      assertThat(q.getQuantifier()).isEqualTo(v3);
-      assertThat(q.getBaseFormula()).isEqualTo(t);
+      assertThat(q.quantifier()).isEqualTo(v3);
+      assertThat(q.baseFormula()).isEqualTo(t);
       assertThat(q.variables()).isEqualTo(Set.of(v1, v2));
     }
   }
