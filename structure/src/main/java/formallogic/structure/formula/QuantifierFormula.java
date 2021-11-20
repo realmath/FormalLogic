@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.EqualsAndHashCode;
 
-abstract class QuantifierFormula extends Formula {
+public abstract class QuantifierFormula extends Formula {
 
   private final Term baseFormula;
   private final Variable quantifier;
