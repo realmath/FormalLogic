@@ -73,8 +73,10 @@ class QuantifierFormulaTest {
     Domain d2 = new FakeDomain();
     Variable v1 = new Variable(d1);
     Variable v2 = new Variable(d2);
+    Variable v3 = new Variable(d1);
     Term t1 = new ProdTerm(v1, v2, TRUTH_DOMAIN);
     Term t2 = new ProdTerm(v1, v2, TRUTH_DOMAIN);
+    Term t3 = new ProdTerm(v3, v2, TRUTH_DOMAIN);
     EqualsTester equalsTester = new EqualsTester();
     for (Class<? extends QuantifierFormula> cls : classes) {
       QuantifierFormula q1 =
@@ -83,8 +85,13 @@ class QuantifierFormulaTest {
           cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v1, t2);
       QuantifierFormula q3 =
           cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v2, t1);
-      equalsTester.addEqualityGroup(q1, q2);
+      QuantifierFormula q4 =
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v3, t1);
+      QuantifierFormula q5 =
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v3, t3);
+      equalsTester.addEqualityGroup(q1, q2, q5);
       equalsTester.addEqualityGroup(q3);
+      equalsTester.addEqualityGroup(q4);
     }
     equalsTester.testEquals();
   }
