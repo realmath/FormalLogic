@@ -69,26 +69,26 @@ class QuantifierFormulaTest {
 
   @Test
   void equalsTest() throws Exception {
-    Domain d1 = new FakeDomain();
-    Domain d2 = new FakeDomain();
-    Variable v1 = new Variable(d1);
-    Variable v2 = new Variable(d2);
-    Variable v3 = new Variable(d1);
-    Term t1 = new ProdTerm(v1, v2, TRUTH_DOMAIN);
-    Term t2 = new ProdTerm(v1, v2, TRUTH_DOMAIN);
-    Term t3 = new ProdTerm(v3, v2, TRUTH_DOMAIN);
+    Domain d = new FakeDomain();
+    Domain e = new FakeDomain();
+    Variable v_d_1 = new Variable(d);
+    Variable v_e = new Variable(e);
+    Variable v_d_2 = new Variable(d);
+    Term v_d_1__v_e__1 = new ProdTerm(v_d_1, v_e, TRUTH_DOMAIN);
+    Term v_d_1__v_e__2 = new ProdTerm(v_d_1, v_e, TRUTH_DOMAIN);
+    Term v_d_2__v_3 = new ProdTerm(v_d_2, v_e, TRUTH_DOMAIN);
     EqualsTester equalsTester = new EqualsTester();
     for (Class<? extends QuantifierFormula> cls : classes) {
       QuantifierFormula q1 =
-          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v1, t1);
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v_d_1, v_d_1__v_e__1);
       QuantifierFormula q2 =
-          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v1, t2);
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v_d_1, v_d_1__v_e__2);
       QuantifierFormula q3 =
-          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v2, t1);
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v_e, v_d_1__v_e__1);
       QuantifierFormula q4 =
-          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v3, t1);
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v_d_2, v_d_1__v_e__1);
       QuantifierFormula q5 =
-          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v3, t3);
+          cls.getDeclaredConstructor(Variable.class, Term.class).newInstance(v_d_2, v_d_2__v_3);
       equalsTester.addEqualityGroup(q1, q2, q5);
       equalsTester.addEqualityGroup(q3);
       equalsTester.addEqualityGroup(q4);
