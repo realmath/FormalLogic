@@ -10,33 +10,55 @@ import org.junit.jupiter.api.Test;
 
 class TermTest {
   @Test
-  public void variables() {
+  public void variables_unaryTerm() {
     Domain d = new FakeDomain();
     Domain valueDomain = new FakeDomain();
     Variable v = new Variable(d);
-    Term t = new UnaryTerm(v, valueDomain);
+    Term unaryTerm = new UnaryTerm(v, valueDomain);
 
-    assertThat(t.variables()).containsExactly(v);
-
-    Variable x = new Variable(d);
-    Variable y = new Variable(d);
-    Term s = new ProdTerm(x, y, d);
-    assertThat(s.variables()).containsExactly(x, y);
-
-    Term u = t.substitute(v, s);
-    assertThat(u.variables()).containsExactly(x, y);
+    assertThat(unaryTerm.variables()).containsExactly(v);
   }
 
   @Test
-  public void substitute() {
+  public void variables_prodTerm() {
     Domain d = new FakeDomain();
-    Term t = new ConstTerm(d);
+    Variable x = new Variable(d);
+    Variable y = new Variable(d);
+    Term prodTerm = new ProdTerm(x, y, d);
+    assertThat(prodTerm.variables()).containsExactly(x, y);
+  }
+
+  @Test
+  public void variables_unaryTermSubstituteProdTerm() {
+    Domain d = new FakeDomain();
+    Domain valueDomain = new FakeDomain();
+    Variable v = new Variable(d);
+    Term unaryTerm = new UnaryTerm(v, valueDomain);
+
+    Variable x = new Variable(d);
+    Variable y = new Variable(d);
+    Term prodTerm = new ProdTerm(x, y, d);
+
+    Term substitutedTerm = unaryTerm.substitute(v, prodTerm);
+    assertThat(substitutedTerm.variables()).containsExactly(x, y);
+  }
+
+  @Test
+  public void constTermSubstituteVariable() {
+    Domain d = new FakeDomain();
+    Term constTerm = new ConstTerm(d);
     Variable v = new Variable(d);
     Term u = new Variable(d);
-    assertThat(t.substitute(v, u)).isEqualTo(t);
+    assertThat(constTerm.substitute(v, u)).isEqualTo(constTerm);
+  }
 
+  @Test
+  public void unaryTermSubstituteVariable() {
+    Domain d = new FakeDomain();
+    Variable v = new Variable(d);
+    Term u = new Variable(d);
     Domain valueDomain = new FakeDomain();
-    Term t1 = new UnaryTerm(v, valueDomain);
-    assertThat(t1.substitute(v, u)).isEqualTo(new UnaryTerm(u, valueDomain));
+    Term unaryTerm = new UnaryTerm(v, valueDomain);
+    assertThat(unaryTerm.substitute(v, u)).isEqualTo(new UnaryTerm(u, valueDomain));
   }
 }
