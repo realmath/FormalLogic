@@ -40,6 +40,11 @@ public final class FormulaBuilder {
     return this;
   }
 
+  public FormulaBuilder equalsTo(Term other) {
+    formula = new Equality(formula, other);
+    return this;
+  }
+
   public FormulaBuilder forAll(Variable variable) {
     formula = new ForAll(variable, formula);
     return this;
