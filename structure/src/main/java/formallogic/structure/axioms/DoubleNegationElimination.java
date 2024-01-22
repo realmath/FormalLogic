@@ -1,21 +1,26 @@
 package formallogic.structure.axioms;
 
 import formallogic.structure.core.Term;
+import formallogic.structure.formula.ForAll;
 import formallogic.structure.formula.Implication;
 import formallogic.structure.formula.Negation;
 import formallogic.structure.proof.Axiom;
 
-public final class DoubleNegativeElimination extends Axiom {
+public final class DoubleNegationElimination extends Axiom {
 
-  public static final DoubleNegativeElimination DOUBLE_NEGATIVE_ELIMINATION =
-      new DoubleNegativeElimination();
+  public static final DoubleNegationElimination DOUBLE_NEGATION_ELIMINATION =
+      new DoubleNegationElimination();
 
-  private DoubleNegativeElimination() {}
+  private DoubleNegationElimination() {}
 
   @Override
-  protected boolean justifies_(Term formulaWithNoFreeVariables) {
-    if (formulaWithNoFreeVariables instanceof Implication) {
-      Implication implication = (Implication) formulaWithNoFreeVariables;
+  protected boolean justifies_(Term formula) {
+    if (formula instanceof ForAll) {
+      ForAll forAll = (ForAll) formula;
+      return justifies_(forAll.baseFormula());
+    }
+    if (formula instanceof Implication) {
+      Implication implication = (Implication) formula;
       Term ifTrue = implication.leftOperand();
       Term thenTrue = implication.rightOperand();
       if (ifTrue instanceof Negation) {
