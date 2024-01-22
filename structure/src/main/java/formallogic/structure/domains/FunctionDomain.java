@@ -1,21 +1,16 @@
 package formallogic.structure.domains;
 
 import formallogic.structure.core.Domain;
-import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
 @EqualsAndHashCode(callSuper = false)
 @Accessors(fluent = true)
+@AllArgsConstructor
 @Getter
 public final class FunctionDomain extends Domain {
-
-  private final List<Domain> variableDomains;
+  private final Domain variableDomain;
   private final Domain valueDomain;
-
-  public FunctionDomain(List<Domain> variableDomains, Domain valueDomain) {
-    this.variableDomains = List.copyOf(variableDomains);
-    this.valueDomain = valueDomain;
-  }
 }
