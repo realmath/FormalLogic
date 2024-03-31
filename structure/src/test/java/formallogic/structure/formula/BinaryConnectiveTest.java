@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static formallogic.structure.domains.TruthDomain.TRUTH_DOMAIN;
 
 import com.google.common.testing.EqualsTester;
+import formallogic.structure.common.AbstractBinaryOperator;
 import formallogic.structure.core.Domain;
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;
@@ -15,8 +16,8 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-final class BinaryOperatorTest {
-  private final List<Class<? extends BinaryOperator>> classes =
+final class BinaryConnectiveTest {
+  private final List<Class<? extends BinaryConnective>> classes =
       Arrays.asList(Conjunction.class, Disjunction.class, Equality.class, Implication.class);
 
   @Test
@@ -29,8 +30,8 @@ final class BinaryOperatorTest {
     Variable vRight2 = new Variable(vRight2Domain);
     Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
     Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
-    for (Class<? extends BinaryOperator> cls : classes) {
-      BinaryOperator b =
+    for (Class<? extends AbstractBinaryOperator<?>> cls : classes) {
+      AbstractBinaryOperator<?> b =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left, right);
       assertThat(b.leftOperand()).isEqualTo(left);
       assertThat(b.rightOperand()).isEqualTo(right);
@@ -49,8 +50,8 @@ final class BinaryOperatorTest {
     Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
     Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
     Term replacement = new UnaryTerm(left, vRight1Domain);
-    for (Class<? extends BinaryOperator> cls : classes) {
-      BinaryOperator b =
+    for (Class<? extends AbstractBinaryOperator<?>> cls : classes) {
+      AbstractBinaryOperator<?> b =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left, right);
       assertThat(b.substitute(vRight1, replacement))
           .isEqualTo(
@@ -73,12 +74,12 @@ final class BinaryOperatorTest {
     Term right2 = new ProdTerm(vRightA, vRightB, TRUTH_DOMAIN);
     Term right3 = new ProdTerm(vRightB, vRightA, TRUTH_DOMAIN);
     EqualsTester equalsTester = new EqualsTester();
-    for (Class<? extends BinaryOperator> cls : classes) {
-      BinaryOperator b1 =
+    for (Class<? extends AbstractBinaryOperator<?>> cls : classes) {
+      AbstractBinaryOperator<?> b1 =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left1, right1);
-      BinaryOperator b2 =
+      AbstractBinaryOperator<?> b2 =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left2, right2);
-      BinaryOperator b3 =
+      AbstractBinaryOperator<?> b3 =
           cls.getDeclaredConstructor(Term.class, Term.class).newInstance(left1, right3);
       equalsTester.addEqualityGroup(b1, b2);
       equalsTester.addEqualityGroup(b3);

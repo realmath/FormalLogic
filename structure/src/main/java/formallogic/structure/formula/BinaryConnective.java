@@ -1,13 +1,12 @@
 package formallogic.structure.formula;
 
+import formallogic.structure.common.AbstractBinaryOperator;
 import formallogic.structure.core.Term;
 import formallogic.structure.domains.TruthDomain;
 
-abstract class BinaryConnective extends BinaryOperator {
+abstract class BinaryConnective extends AbstractBinaryOperator<TruthDomain> {
 
   BinaryConnective(Term leftOperand, Term rightOperand) {
-    super(leftOperand, rightOperand);
-    assert leftOperand.domain().equals(TruthDomain.TRUTH_DOMAIN)
-        : "leftOperand should be in TRUTH_DOMAIN";
+    super(leftOperand, rightOperand, TruthDomain.TRUTH_DOMAIN);
   }
 }
