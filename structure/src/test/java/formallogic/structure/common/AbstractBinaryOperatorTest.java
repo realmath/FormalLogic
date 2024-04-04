@@ -1,7 +1,6 @@
 package formallogic.structure.common;
 
 import static com.google.common.truth.Truth.assertThat;
-import static formallogic.structure.domains.TruthDomain.TRUTH_DOMAIN;
 
 import com.google.common.testing.EqualsTester;
 import formallogic.structure.core.Domain;
@@ -21,6 +20,8 @@ public abstract class AbstractBinaryOperatorTest {
   protected abstract AbstractBinaryOperator<?> newInstance(
       Class<? extends AbstractBinaryOperator<?>> cls, Term left, Term right) throws Exception;
 
+  protected abstract Domain baseDomain();
+
   @Test
   public void beanTest() throws Exception {
     Domain vLeftDomain = new FakeDomain();
@@ -29,8 +30,8 @@ public abstract class AbstractBinaryOperatorTest {
     Variable vRight1 = new Variable(vRight1Domain);
     Domain vRight2Domain = new FakeDomain();
     Variable vRight2 = new Variable(vRight2Domain);
-    Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
-    Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
+    Term left = new UnaryTerm(vLeft, baseDomain());
+    Term right = new ProdTerm(vRight1, vRight2, baseDomain());
     for (Class<? extends AbstractBinaryOperator<?>> cls : classes()) {
       AbstractBinaryOperator<?> b = newInstance(cls, left, right);
       assertThat(b.leftOperand()).isEqualTo(left);
@@ -47,8 +48,8 @@ public abstract class AbstractBinaryOperatorTest {
     Variable vRight1 = new Variable(vRight1Domain);
     Domain vRight2Domain = new FakeDomain();
     Variable vRight2 = new Variable(vRight2Domain);
-    Term left = new UnaryTerm(vLeft, TRUTH_DOMAIN);
-    Term right = new ProdTerm(vRight1, vRight2, TRUTH_DOMAIN);
+    Term left = new UnaryTerm(vLeft, baseDomain());
+    Term right = new ProdTerm(vRight1, vRight2, baseDomain());
     Term replacement = new UnaryTerm(left, vRight1Domain);
     for (Class<? extends AbstractBinaryOperator<?>> cls : classes()) {
       AbstractBinaryOperator<?> b = newInstance(cls, left, right);
@@ -65,11 +66,11 @@ public abstract class AbstractBinaryOperatorTest {
     Variable vRightA = new Variable(vRightDomainA);
     Domain vRightDomainB = new FakeDomain();
     Variable vRightB = new Variable(vRightDomainB);
-    Term left1 = new UnaryTerm(vLeft, TRUTH_DOMAIN);
-    Term right1 = new ProdTerm(vRightA, vRightB, TRUTH_DOMAIN);
-    Term left2 = new UnaryTerm(vLeft, TRUTH_DOMAIN);
-    Term right2 = new ProdTerm(vRightA, vRightB, TRUTH_DOMAIN);
-    Term right3 = new ProdTerm(vRightB, vRightA, TRUTH_DOMAIN);
+    Term left1 = new UnaryTerm(vLeft, baseDomain());
+    Term right1 = new ProdTerm(vRightA, vRightB, baseDomain());
+    Term left2 = new UnaryTerm(vLeft, baseDomain());
+    Term right2 = new ProdTerm(vRightA, vRightB, baseDomain());
+    Term right3 = new ProdTerm(vRightB, vRightA, baseDomain());
     EqualsTester equalsTester = new EqualsTester();
     for (Class<? extends AbstractBinaryOperator<?>> cls : classes()) {
       AbstractBinaryOperator<?> b1 = newInstance(cls, left1, right1);
