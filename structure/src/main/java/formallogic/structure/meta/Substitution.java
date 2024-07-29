@@ -11,22 +11,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class Substitution extends Term {
-  private final Term baseTerm;
+  private final Term baseFormula;
   private final Term metaVariable;
   private final Term replacement;
   private final Set<Variable> variables;
 
-  public Substitution(Term baseTerm, Term metaVariable, Term replacement) {
-    assert baseTerm.domain().equals(TRUTH_FORMULA_DOMAIN) : "baseTerm.domain() is wrong";
+  public Substitution(Term baseFormula, Term metaVariable, Term replacement) {
+    assert baseFormula.domain().equals(TRUTH_FORMULA_DOMAIN) : "baseFormula.domain() is wrong";
     assert metaVariable.domain().equals(VARIABLE_DOMAIN) : "metaVariable is wrong";
     assert replacement.domain().equals(VARIABLE_DOMAIN) : "replacement is wrong";
 
-    this.baseTerm = baseTerm;
+    this.baseFormula = baseFormula;
     this.metaVariable = metaVariable;
     this.replacement = replacement;
     variables =
         Stream.concat(
-                Stream.concat(baseTerm.variables().stream(), metaVariable.variables().stream()),
+                Stream.concat(baseFormula.variables().stream(), metaVariable.variables().stream()),
                 replacement.variables().stream())
             .collect(Collectors.toUnmodifiableSet());
   }
@@ -39,7 +39,7 @@ public final class Substitution extends Term {
   @Override
   protected Term substitute_(Variable variable, Term term) {
     return new Substitution(
-        baseTerm.substitute(variable, term),
+        baseFormula.substitute(variable, term),
         metaVariable.substitute(variable, term),
         replacement.substitute(variable, term));
   }
