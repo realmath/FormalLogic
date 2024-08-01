@@ -1,5 +1,6 @@
 package formallogic.structure.meta;
 
+import static formallogic.structure.meta.TermDomain.TERM_DOMAIN;
 import static formallogic.structure.meta.TruthFormulaDomain.TRUTH_FORMULA_DOMAIN;
 import static formallogic.structure.meta.VariableDomain.VARIABLE_DOMAIN;
 
@@ -19,7 +20,7 @@ public final class Substitution extends Term {
   public Substitution(Term baseFormula, Term metaVariable, Term replacement) {
     assert baseFormula.domain().equals(TRUTH_FORMULA_DOMAIN) : "baseFormula.domain() is wrong";
     assert metaVariable.domain().equals(VARIABLE_DOMAIN) : "metaVariable is wrong";
-    assert replacement.domain().equals(VARIABLE_DOMAIN) : "replacement is wrong";
+    assert replacement.domain().equals(TERM_DOMAIN) : "replacement is wrong";
 
     this.baseFormula = baseFormula;
     this.metaVariable = metaVariable;
