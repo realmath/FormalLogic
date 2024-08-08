@@ -8,27 +8,21 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class AbstractBinaryOperator<T extends Domain> extends Term {
+public abstract class AbstractBinaryOperator<T extends Domain> extends AbstractTerm<T> {
 
   private final Term leftOperand;
   private final Term rightOperand;
   private final Set<Variable> variables;
-  private final T domain;
 
   protected AbstractBinaryOperator(Term leftOperand, Term rightOperand, T domain) {
+    super(domain);
     assert leftOperand.domain().equals(domain) : "leftOperand";
     assert rightOperand.domain().equals(domain) : "rightOperand";
-    this.domain = domain;
     this.leftOperand = leftOperand;
     this.rightOperand = rightOperand;
     variables =
         Stream.concat(leftOperand.variables().stream(), rightOperand.variables().stream())
             .collect(Collectors.toUnmodifiableSet());
-  }
-
-  @Override
-  public final T domain() {
-    return domain;
   }
 
   public final Term leftOperand() {

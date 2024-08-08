@@ -1,5 +1,6 @@
 package formallogic.structure.formula;
 
+import formallogic.structure.common.AbstractTerm;
 import formallogic.structure.core.Domain;
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;
@@ -9,13 +10,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.EqualsAndHashCode;
 
-public abstract class QuantifierFormula extends Formula {
+public abstract class QuantifierFormula extends AbstractTerm<TruthDomain> {
 
   private final Term baseFormula;
   private final Variable quantifier;
   private final Set<Variable> variables;
 
   QuantifierFormula(Variable quantifier, Term baseFormula) {
+    super(TruthDomain.TRUTH_DOMAIN);
     assert baseFormula.domain().equals(TruthDomain.TRUTH_DOMAIN) : "baseFormula is not a formula";
     this.quantifier = quantifier;
     this.baseFormula = baseFormula;

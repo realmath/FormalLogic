@@ -9,7 +9,7 @@ import java.util.List;
 
 final class MetaBinaryOperatorTest extends AbstractBinaryOperatorTest {
   private final List<Class<? extends AbstractBinaryOperator<?>>> classes =
-      Arrays.asList(MetaConjunction.class, MetaDisjunction.class);
+      Arrays.asList(MetaConjunction.class, MetaDisjunction.class, MetaImplication.class);
 
   @Override
   protected List<Class<? extends AbstractBinaryOperator<?>>> classes() {

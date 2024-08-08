@@ -1,5 +1,6 @@
 package formallogic.structure.formula;
 
+import formallogic.structure.common.AbstractTerm;
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;
 import formallogic.structure.domains.TruthDomain;
@@ -12,11 +13,12 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(fluent = true)
 @Getter
-public final class Negation extends Formula {
+public final class Negation extends AbstractTerm<TruthDomain> {
 
   private final Term operand;
 
   Negation(Term operand) {
+    super(TruthDomain.TRUTH_DOMAIN);
     assert operand.domain().equals(TruthDomain.TRUTH_DOMAIN) : "operand";
     this.operand = operand;
   }
