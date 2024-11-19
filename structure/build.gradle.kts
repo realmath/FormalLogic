@@ -1,3 +1,5 @@
+import net.ltgt.gradle.errorprone.errorprone
+
 plugins {
   java
   id("com.diffplug.spotless") version "6.10.0"
@@ -30,6 +32,14 @@ dependencies {
 spotless {
   java {
     googleJavaFormat()
+  }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+  options.errorprone {
+    disable(
+      "CanIgnoreReturnValueSuggester"
+    )
   }
 }
 
