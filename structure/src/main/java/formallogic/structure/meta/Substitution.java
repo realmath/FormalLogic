@@ -4,20 +4,22 @@ import static formallogic.structure.meta.TermDomain.TERM_DOMAIN;
 import static formallogic.structure.meta.TruthFormulaDomain.TRUTH_FORMULA_DOMAIN;
 import static formallogic.structure.meta.VariableDomain.VARIABLE_DOMAIN;
 
-import formallogic.structure.core.Domain;
+import formallogic.structure.common.AbstractTerm;
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class Substitution extends Term {
+public final class Substitution extends AbstractTerm<TruthFormulaDomain> {
   private final Term baseFormula;
   private final Term metaVariable;
   private final Term replacement;
   private final Set<Variable> variables;
 
   public Substitution(Term baseFormula, Term metaVariable, Term replacement) {
+    super(TRUTH_FORMULA_DOMAIN);
+
     assert baseFormula.domain().equals(TRUTH_FORMULA_DOMAIN) : "baseFormula.domain() is wrong";
     assert metaVariable.domain().equals(VARIABLE_DOMAIN) : "metaVariable is wrong";
     assert replacement.domain().equals(TERM_DOMAIN) : "replacement is wrong";
@@ -30,11 +32,6 @@ public final class Substitution extends Term {
                 Stream.concat(baseFormula.variables().stream(), metaVariable.variables().stream()),
                 replacement.variables().stream())
             .collect(Collectors.toUnmodifiableSet());
-  }
-
-  @Override
-  public Domain domain() {
-    return TRUTH_FORMULA_DOMAIN;
   }
 
   @Override

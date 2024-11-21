@@ -30,6 +30,6 @@ public final class Negation extends AbstractTerm<TruthDomain> {
 
   @Override
   protected Set<Variable> variables_() {
-    return operand().variables();
+    return operand.variables();
   }
 }

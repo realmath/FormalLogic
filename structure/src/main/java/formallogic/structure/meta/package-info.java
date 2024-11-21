@@ -1,5 +1,3 @@
-package formallogic.structure.meta;
-
 /**
  * Meta Theory.
  *
@@ -10,3 +8,5 @@ package formallogic.structure.meta;
  *
  * <p>Axioms:
  */
+@javax.annotation.ParametersAreNonnullByDefault
+package formallogic.structure.meta;
