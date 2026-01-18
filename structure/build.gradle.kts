@@ -1,9 +1,6 @@
-import net.ltgt.gradle.errorprone.errorprone
-
 plugins {
   java
   id("com.diffplug.spotless") version "6.10.0"
-  id("net.ltgt.errorprone") version "2.0.2"
 }
 
 repositories {
@@ -18,8 +15,6 @@ java {
 dependencies {
   annotationProcessor("org.projectlombok:lombok:1.18.24")
   compileOnly("org.projectlombok:lombok:1.18.24")
-  errorprone("com.google.errorprone:error_prone_core:2.15.0")
-  implementation("com.google.code.findbugs:jsr305:3.0.2")
   testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
   testImplementation("com.google.guava:guava-testlib:32.0.0-jre")
   testImplementation("com.google.truth:truth:1.1.4")
@@ -32,14 +27,6 @@ dependencies {
 spotless {
   java {
     googleJavaFormat()
-  }
-}
-
-tasks.withType<JavaCompile>().configureEach {
-  options.errorprone {
-    disable(
-      "CanIgnoreReturnValueSuggester"
-    )
   }
 }
 
