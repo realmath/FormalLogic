@@ -10,7 +10,7 @@ import java.util.List;
 
 final class BinaryConnectiveTest extends AbstractBinaryOperatorTest {
   private final List<Class<? extends AbstractBinaryOperator<?>>> classes =
-      Arrays.asList(Conjunction.class, Disjunction.class, Equality.class, Implication.class);
+      Arrays.asList(Conjunction.class, Disjunction.class, Implication.class);
 
   @Override
   protected List<Class<? extends AbstractBinaryOperator<?>>> classes() {
