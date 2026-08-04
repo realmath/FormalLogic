@@ -30,7 +30,18 @@ final class FormulaBuilderTest {
     assertThat(FormulaBuilder.newBuilder(f).implies(g).build()).isEqualTo(new Implication(f, g));
     assertThat(FormulaBuilder.newBuilder(f).isImpliedBy(g).build())
         .isEqualTo(new Implication(g, f));
-    assertThat(FormulaBuilder.newBuilder(f).equalsTo(g).build()).isEqualTo(new Equality(f, g));
+  }
+
+  @Test
+  public void equalityBuilderTest() {
+    Domain domain = new FakeDomain();
+    Term left = new ConstTerm(domain);
+    Term right = new ConstTerm(domain);
+
+    Term equality = FormulaBuilder.newBuilder(left).equalsTo(right).build();
+
+    assertThat(equality).isEqualTo(new Equality(left, right));
+    assertThat(equality.domain()).isEqualTo(TruthDomain.TRUTH_DOMAIN);
   }
 
   @Test

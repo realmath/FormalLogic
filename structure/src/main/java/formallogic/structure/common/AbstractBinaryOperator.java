@@ -15,9 +15,14 @@ public abstract class AbstractBinaryOperator<T extends Domain> extends AbstractT
   private final Set<Variable> variables;
 
   protected AbstractBinaryOperator(Term leftOperand, Term rightOperand, T domain) {
-    super(domain);
-    assert leftOperand.domain().equals(domain) : "leftOperand";
-    assert rightOperand.domain().equals(domain) : "rightOperand";
+    this(leftOperand, rightOperand, domain, domain);
+  }
+
+  protected AbstractBinaryOperator(
+      Term leftOperand, Term rightOperand, Domain operandDomain, T resultDomain) {
+    super(resultDomain);
+    assert leftOperand.domain().equals(operandDomain) : "leftOperand";
+    assert rightOperand.domain().equals(operandDomain) : "rightOperand";
     this.leftOperand = leftOperand;
     this.rightOperand = rightOperand;
     variables =
