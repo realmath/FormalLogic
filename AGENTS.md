@@ -1,5 +1,10 @@
 # Coding Agent Instructions
 
+## Java Formatting
+
+- Before completing any Java changes, run `./gradlew spotlessApply` from the repository root.
+- Never leave Java files unformatted. Always let Spotless/Google Java Format decide formatting, and never format Java files by other means.
+
 ## Java and Gradle
 
 - Use JDK 17 for all Gradle commands in this repository. The Gradle wrapper is pinned to Gradle
