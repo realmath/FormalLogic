@@ -23,7 +23,7 @@ dependencies {
 
 spotless {
   java {
-    googleJavaFormat()
+    googleJavaFormat("1.30.0")
   }
 }
 
