@@ -7,13 +7,13 @@
 
 ## Java and Gradle
 
-- Use JDK 17 for all Gradle commands in this repository. The Gradle wrapper is pinned to Gradle
-  7.2, which cannot run on newer JDKs such as JDK 25.
+- Use JDK 25 for all Gradle commands in this repository. The Gradle wrapper is pinned to Gradle
+  9.1, which supports running on JDK 25.
 - Before running Gradle, verify the active runtime with `java -version`. If necessary in the Codex
-  environment, select its installed JDK 17 with:
+  environment, select its installed JDK 25 with:
 
   ```bash
-  export JAVA_HOME=/root/.local/share/mise/installs/java/17.0.2
+  export JAVA_HOME=/root/.local/share/mise/installs/java/25.0.2
   export PATH="$JAVA_HOME/bin:$PATH"
   ```
 

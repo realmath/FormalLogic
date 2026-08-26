@@ -8,7 +8,6 @@ import formallogic.structure.domains.TruthDomain;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.EqualsAndHashCode;
 
 public abstract class QuantifierFormula extends AbstractTerm<TruthDomain> {
 
@@ -60,7 +59,6 @@ public abstract class QuantifierFormula extends AbstractTerm<TruthDomain> {
     return Objects.hash(baseFormula.substitute(quantifier, new DummyTerm(quantifier.domain())));
   }
 
-  @EqualsAndHashCode(callSuper = false)
   private static final class DummyTerm extends Term {
     private final Domain d;
 
@@ -81,6 +79,16 @@ public abstract class QuantifierFormula extends AbstractTerm<TruthDomain> {
     @Override
     protected Set<Variable> variables_() {
       return Set.of();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+      return object == this || (object instanceof DummyTerm other && Objects.equals(d, other.d));
+    }
+
+    @Override
+    public int hashCode() {
+      return 59 + (d == null ? 43 : d.hashCode());
     }
   }
 }

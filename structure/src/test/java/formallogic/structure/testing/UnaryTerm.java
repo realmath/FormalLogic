@@ -3,12 +3,9 @@ package formallogic.structure.testing;
 import formallogic.structure.core.Domain;
 import formallogic.structure.core.Term;
 import formallogic.structure.core.Variable;
+import java.util.Objects;
 import java.util.Set;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
-@EqualsAndHashCode(callSuper = false)
-@ToString
 public final class UnaryTerm extends Term {
   private final Term t;
   private final Domain d;
@@ -31,5 +28,25 @@ public final class UnaryTerm extends Term {
   @Override
   protected Set<Variable> variables_() {
     return t.variables();
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    return object == this
+        || (object instanceof UnaryTerm other
+            && Objects.equals(t, other.t)
+            && Objects.equals(d, other.d));
+  }
+
+  @Override
+  public int hashCode() {
+    int result = 1;
+    result = result * 59 + (t == null ? 43 : t.hashCode());
+    return result * 59 + (d == null ? 43 : d.hashCode());
+  }
+
+  @Override
+  public String toString() {
+    return "UnaryTerm(t=" + t + ", d=" + d + ")";
   }
 }

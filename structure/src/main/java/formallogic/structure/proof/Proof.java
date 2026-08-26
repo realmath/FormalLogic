@@ -3,13 +3,8 @@ package formallogic.structure.proof;
 import formallogic.structure.core.Term;
 import formallogic.structure.formula.FormulaBuilder;
 import java.util.List;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.experimental.Accessors;
+import java.util.Objects;
 
-@EqualsAndHashCode
-@Accessors(fluent = true)
-@Getter
 public final class Proof {
 
   private final Axiom axiom;
@@ -21,6 +16,18 @@ public final class Proof {
     this.premises = premises;
     assert premises == List.copyOf(premises) : "mutable";
     this.conclusion = conclusion;
+  }
+
+  public Axiom axiom() {
+    return axiom;
+  }
+
+  public List<Proof> premises() {
+    return premises;
+  }
+
+  public Term conclusion() {
+    return conclusion;
   }
 
   /** The axiom verifies the conclusion. */
@@ -46,5 +53,26 @@ public final class Proof {
                 .build())
         : "premises does not imply conclusion";
     return new Proof(axiom, List.of(premise1, premise2), conclusion);
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    if (object == this) {
+      return true;
+    }
+    if (!(object instanceof Proof other)) {
+      return false;
+    }
+    return Objects.equals(axiom, other.axiom)
+        && Objects.equals(premises, other.premises)
+        && Objects.equals(conclusion, other.conclusion);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = 1;
+    result = result * 59 + (axiom == null ? 43 : axiom.hashCode());
+    result = result * 59 + (premises == null ? 43 : premises.hashCode());
+    return result * 59 + (conclusion == null ? 43 : conclusion.hashCode());
   }
 }
