@@ -68,6 +68,65 @@ class QuantifierFormulaTest {
   }
 
   @Test
+  void substitute_avoidsCapturingReplacementVariable() throws Exception {
+    Domain domain = new FakeDomain();
+    Variable freeVariable = new Variable(domain);
+    Variable quantifier = new Variable(domain);
+    Term baseFormula = new ProdTerm(freeVariable, quantifier, TRUTH_DOMAIN);
+
+    for (Class<? extends QuantifierFormula> cls : classes) {
+      QuantifierFormula formula =
+          cls.getDeclaredConstructor(Variable.class, Term.class)
+              .newInstance(quantifier, baseFormula);
+
+      QuantifierFormula result = (QuantifierFormula) formula.substitute(freeVariable, quantifier);
+
+      assertThat(result.quantifier()).isNotEqualTo(quantifier);
+      assertThat(result.quantifier().domain()).isEqualTo(quantifier.domain());
+      assertThat(result.baseFormula())
+          .isEqualTo(new ProdTerm(quantifier, result.quantifier(), TRUTH_DOMAIN));
+      assertThat(result.variables()).containsExactly(quantifier);
+    }
+  }
+
+  @Test
+  void substitute_doesNotRenameQuantifierWithoutCaptureRisk() throws Exception {
+    Domain domain = new FakeDomain();
+    Variable freeVariable = new Variable(domain);
+    Variable quantifier = new Variable(domain);
+    Variable replacement = new Variable(domain);
+    Term baseFormula = new ProdTerm(freeVariable, quantifier, TRUTH_DOMAIN);
+
+    for (Class<? extends QuantifierFormula> cls : classes) {
+      QuantifierFormula formula =
+          cls.getDeclaredConstructor(Variable.class, Term.class)
+              .newInstance(quantifier, baseFormula);
+
+      QuantifierFormula result = (QuantifierFormula) formula.substitute(freeVariable, replacement);
+
+      assertThat(result.quantifier()).isSameInstanceAs(quantifier);
+      assertThat(result.baseFormula())
+          .isEqualTo(new ProdTerm(replacement, quantifier, TRUTH_DOMAIN));
+    }
+  }
+
+  @Test
+  void substitute_boundVariableReturnsOriginalFormula() throws Exception {
+    Domain domain = new FakeDomain();
+    Variable quantifier = new Variable(domain);
+    Variable replacement = new Variable(domain);
+    Term baseFormula = new UnaryTerm(quantifier, TRUTH_DOMAIN);
+
+    for (Class<? extends QuantifierFormula> cls : classes) {
+      QuantifierFormula formula =
+          cls.getDeclaredConstructor(Variable.class, Term.class)
+              .newInstance(quantifier, baseFormula);
+
+      assertThat(formula.substitute(quantifier, replacement)).isSameInstanceAs(formula);
+    }
+  }
+
+  @Test
   void equalsTest() throws Exception {
     Domain d = new FakeDomain();
     Domain e = new FakeDomain();

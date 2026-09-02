@@ -12,6 +12,12 @@ public final class Exists extends QuantifierFormula {
   @Override
   protected Exists substitute_(Variable variable, Term term) {
     assert variables().contains(variable) : "variable is not free";
+    if (term.variables().contains(quantifier())) {
+      Variable newQuantifier = new Variable(quantifier().domain());
+      Exists captureAvoidingThis =
+          new Exists(newQuantifier, baseFormula().substitute(quantifier(), newQuantifier));
+      return (Exists) captureAvoidingThis.substitute(variable, term);
+    }
     return new Exists(quantifier(), baseFormula().substitute(variable, term));
   }
 }
