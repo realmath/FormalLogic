@@ -16,10 +16,10 @@ java {
 dependencies {
   testImplementation("com.google.guava:guava-testlib:33.5.0-jre")
   testImplementation("com.google.truth:truth:1.1.4")
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+  testImplementation(platform("org.junit:junit-bom:6.0.3"))
+  testImplementation("org.junit.jupiter:junit-jupiter")
   testImplementation("org.mockito:mockito-core:4.7.0")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.9.0")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 spotless {
